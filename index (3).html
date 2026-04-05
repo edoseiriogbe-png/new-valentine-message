@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Be My Valentine</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+margin-top:120px;
+overflow:hidden;
+}
+
+h1{
+color:white;
+font-size:42px;
+}
+
+button{
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:12px;
+margin:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+box-shadow:0 0 10px #ff4d6d;
+}
+
+#yes:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px #ff4d6d;
+}
+
+#no{
+background:#333;
+color:white;
+}
+
+#message{
+display:none;
+font-size:32px;
+color:white;
+margin-top:30px;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>Will you be my Valentine? ❤️</h1>
+
+<button id="yes">Yes</button>
+<button id="no">No</button>
+
+<div id="message">
+You just made me one happy Nasarawa boy ❤️
+</div>
+
+<audio id="music">
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<script>
+
+let yes = document.getElementById("yes")
+let no = document.getElementById("no")
+let message = document.getElementById("message")
+let music = document.getElementById("music")
+
+yes.onclick = function(){
+
+message.style.display="block"
+
+music.play()
+
+startConfetti()
+
+}
+
+no.onmouseover = function(){
+
+this.style.position="absolute"
+
+this.style.left=Math.random()*80+"%"
+
+this.style.top=Math.random()*80+"%"
+
+}
+
+let canvas=document.getElementById("confetti")
+let ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let pieces=[]
+
+function startConfetti(){
+
+for(let i=0;i<200;i++){
+
+pieces.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*8+2,
+speed:Math.random()*3+2
+
+})
+
+}
+
+animate()
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+for(let i=0;i<pieces.length;i++){
+
+let p=pieces[i]
+
+ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)"
+
+ctx.fillRect(p.x,p.y,p.size,p.size)
+
+p.y+=p.speed
+
+if(p.y>canvas.height){
+p.y=0
+}
+
+}
+
+requestAnimationFrame(animate)
+
+}
+
+</script>
+
+</body>
+
+</html>
